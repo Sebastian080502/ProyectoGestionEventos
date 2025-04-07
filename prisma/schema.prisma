@@ -1,0 +1,103 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          String      @id @default(uuid())
+  name        String
+  email       String      @unique
+  password    String
+  feedbacks   Feedback[]
+  registrations Registration[]
+  createdAt   DateTime    @default(now())
+  active      Boolean     @default(true)
+}
+
+model Event {
+  id          String        @id @default(uuid())
+  title       String
+  description String
+  date        DateTime
+  location    Location?     @relation(fields: [locationId], references: [id])
+  locationId  String?
+  speakers    Speaker[]
+  conferences Conference[]
+  createdAt   DateTime      @default(now())
+  active      Boolean       @default(true)
+  registrations Registration[]
+  sponsors    Sponsor[]
+}
+
+model Speaker {
+  id          String      @id @default(uuid())
+  name        String
+  bio         String
+  photo       String?
+  event       Event?      @relation(fields: [eventId], references: [id])
+  eventId     String?
+  createdAt   DateTime    @default(now())
+  active      Boolean     @default(true)
+  conferences Conference[]
+}
+
+model Conference {
+  id          String        @id @default(uuid())
+  title       String
+  description String
+  speaker     Speaker?      @relation(fields: [speakerId], references: [id])
+  speakerId   String?
+  event       Event?        @relation(fields: [eventId], references: [id])
+  eventId     String?
+  createdAt   DateTime      @default(now())
+  active      Boolean       @default(true)
+}
+
+model Registration {
+  id          String      @id @default(uuid())
+  user        User        @relation(fields: [userId], references: [id])
+  userId      String
+  event       Event       @relation(fields: [eventId], references: [id])
+  eventId     String
+  createdAt   DateTime    @default(now())
+  active      Boolean     @default(true)
+}
+
+model Sponsor {
+  id          String      @id @default(uuid())
+  name        String
+  logo        String?
+  event       Event?      @relation(fields: [eventId], references: [id])
+  eventId     String?
+  createdAt   DateTime    @default(now())
+  active      Boolean     @default(true)
+}
+
+model Location {
+  id          String      @id @default(uuid())
+  name        String
+  address     String
+  events      Event[]
+  createdAt   DateTime    @default(now())
+  active      Boolean     @default(true)
+}
+
+model Feedback {
+  id          String      @id @default(uuid())
+  rating      Int
+  comment     String
+  user        User        @relation(fields: [userId], references: [id])
+  userId      String
+  createdAt   DateTime    @default(now())
+  active      Boolean     @default(true)
+}
