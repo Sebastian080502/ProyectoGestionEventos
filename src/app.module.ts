@@ -1,8 +1,10 @@
 import { Module } from '@nestjs/common';
+import { UserModule } from './user/user.module';
+import { EventModule } from './event/event.module';
 
 
 @Module({
-  imports: [],
+  imports: [UserModule, EventModule],
   controllers: [],
   providers: [],
 })
