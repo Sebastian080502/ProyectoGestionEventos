@@ -14,8 +14,16 @@ export class EventService extends PrismaClient implements OnModuleInit {
   });
 }
 
+
 findOne() {
-  return this.event.findFirst();
+  return this.event.findMany();
+}
+
+update(id:string, UpdateEventDto: UpdateEventDto) {
+  return this.event.update({
+    where:{id},
+    data: UpdateEventDto,
+  });
 }
 
 remove(id: string) {

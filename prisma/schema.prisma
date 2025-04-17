@@ -14,6 +14,7 @@ model User {
   password    String
   createdAt   DateTime @default(now())
   active      Boolean  @default(true)
+
 }
 
 model Event {
@@ -23,12 +24,13 @@ model Event {
   date        DateTime
   createdAt   DateTime @default(now())
   active      Boolean  @default(true)
+  
 }
 
 model Speaker {
   id          String   @id @default(uuid())
   name        String
-  bio         String
+  biography   String
   createdAt   DateTime @default(now())
   active      Boolean  @default(true)
 }
@@ -40,9 +42,24 @@ model Conference {
   createdAt   DateTime @default(now())
   active      Boolean  @default(true)
 }
-
+// aca se tendria que relacionar el User con el Registration
+/*    
 model Registration {
   id          String   @id @default(uuid())
+  userId      String
+  eventId     String
+  createdAt   DateTime @default(now())
+  active      Boolean  @default(true)
+
+  user        User     @relation(fields: [userId], references: [id])
+  event       Event    @relation(fields: [eventId], references: [id])
+}
+*/
+model Registration {
+  id          String   @id @default(uuid())
+  name        String
+  email       String
+  phone       String
   createdAt   DateTime @default(now())
   active      Boolean  @default(true)
 }
@@ -64,7 +81,7 @@ model Location {
 
 model Feedback {
   id          String   @id @default(uuid())
-  rating      Int
+  rating      String
   comment     String
   createdAt   DateTime @default(now())
   active      Boolean  @default(true)

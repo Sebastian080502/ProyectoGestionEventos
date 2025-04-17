@@ -12,9 +12,14 @@ export class UserController {
     return this.userService.create(createUserDto);
   }
 
-  @Get('')
-  findOne() {
-    return this.userService.findOne();
+  @Get()
+  getAll() {
+    return this.userService.findAll();
+  }
+
+  @Patch(':id')
+  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
+    return this.userService.update(id, updateUserDto);
   }
 
  

@@ -8,7 +8,8 @@ async function bootstrap() {
   app.useGlobalPipes(
     new ValidationPipe({
     whitelist: true,
-    forbidNonWhitelisted: true
+    forbidNonWhitelisted: true,
+    transform: true, // esto convierte strings a date si usamos el @tyoe(() => Date) en el dto
   }),
 );
   await app.listen(process.env.PORT ?? 3000);

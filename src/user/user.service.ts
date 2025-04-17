@@ -15,9 +15,21 @@ export class UserService extends PrismaClient implements OnModuleInit {
   });
 }
 
-  findOne() {
-    return this.user.findFirst();
+findAll(){
+  return this.user.findMany({
+    orderBy:{
+      createdAt:'desc'
+    }
+  });
+}
+
+  update(id:string, updateUserDto: UpdateUserDto){
+    return this.user.update({
+      where:{id},
+      data: updateUserDto,
+    });
   }
+
 
   remove(id: string) {
     return this.user.delete({where:{id}});

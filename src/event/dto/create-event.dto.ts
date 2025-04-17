@@ -1,4 +1,5 @@
-import { IsString } from 'class-validator';
+import { IsString , IsDate, } from 'class-validator';
+import { Type } from 'class-transformer';
 
 export class CreateEventDto {
 
@@ -6,6 +7,8 @@ export class CreateEventDto {
     title:string
     @IsString()
     description:string
-    @IsString()
-    date:string
+   
+    @IsDate({message:'la fecha debe ser validar (ej: 2023-10-10)'})
+    @Type(() => Date) // convierte el string a Date
+    date:Date
 }
