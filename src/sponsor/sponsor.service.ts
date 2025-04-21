@@ -1,26 +1,32 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, OnModuleInit } from '@nestjs/common';
 import { CreateSponsorDto } from './dto/create-sponsor.dto';
 import { UpdateSponsorDto } from './dto/update-sponsor.dto';
-
+import { PrismaClient } from '@prisma/client';
 @Injectable()
-export class SponsorService {
+export class SponsorService extends PrismaClient implements OnModuleInit {
+  async onModuleInit(){ 
+    await this.$connect()};
+    
   create(createSponsorDto: CreateSponsorDto) {
-    return 'This action adds a new sponsor';
+    return this.sponsor.create({
+      data: createSponsorDto,
+      });
   }
 
   findAll() {
-    return `This action returns all sponsor`;
+    return this.sponsor.findMany();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} sponsor`;
+  update(id: string, updateSponsorDto: UpdateSponsorDto) {
+    return this.sponsor.update({
+      where:{id},
+      data:updateSponsorDto,
+      });
   }
 
-  update(id: number, updateSponsorDto: UpdateSponsorDto) {
-    return `This action updates a #${id} sponsor`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} sponsor`;
+  remove(id: string) {
+    return this.sponsor.delete({
+      where:{id},
+    });
   }
 }
