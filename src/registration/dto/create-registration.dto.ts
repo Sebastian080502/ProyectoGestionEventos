@@ -8,4 +8,11 @@ export class CreateRegistrationDto {
     email: string;
     @IsString()
     phone: string;
+    @IsString()
+    institution: string;
+    @IsString()
+    role:string;
+    @IsString()
+    eventId: string;
+    
 }

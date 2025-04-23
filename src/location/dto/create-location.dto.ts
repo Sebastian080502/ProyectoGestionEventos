@@ -5,4 +5,10 @@ export class CreateLocationDto {
     name:string;
     @IsString()
     address:string;
+    @IsString()
+    city:string;
+    @IsString()
+    capacity:string;
+    @IsString()
+    room:string;
 }

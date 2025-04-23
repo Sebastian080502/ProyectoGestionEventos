@@ -14,7 +14,8 @@ model User {
   password    String
   createdAt   DateTime @default(now())
   active      Boolean  @default(true)
-
+  role        String
+  lastLogin   DateTime @default(now())
 }
 
 model Event {
@@ -24,15 +25,21 @@ model Event {
   date        DateTime
   createdAt   DateTime @default(now())
   active      Boolean  @default(true)
-  
+  location    String
+  category    String
+  capacity    String
 }
 
 model Speaker {
   id          String   @id @default(uuid())
   name        String
   biography   String
+  email       String   @unique
   createdAt   DateTime @default(now())
   active      Boolean  @default(true)
+  topic       String
+  phone       String
+  affiliation String
 }
 
 model Conference {
@@ -41,20 +48,12 @@ model Conference {
   description String
   createdAt   DateTime @default(now())
   active      Boolean  @default(true)
+  startDate   DateTime
+  endDate     DateTime
+  location    String
+  category    String
 }
-// aca se tendria que relacionar el User con el Registration
-/*    
-model Registration {
-  id          String   @id @default(uuid())
-  userId      String
-  eventId     String
-  createdAt   DateTime @default(now())
-  active      Boolean  @default(true)
 
-  user        User     @relation(fields: [userId], references: [id])
-  event       Event    @relation(fields: [eventId], references: [id])
-}
-*/
 model Registration {
   id          String   @id @default(uuid())
   name        String
@@ -62,27 +61,40 @@ model Registration {
   phone       String
   createdAt   DateTime @default(now())
   active      Boolean  @default(true)
+  institution String
+  eventId     String 
+  role        String
 }
 
 model Sponsor {
   id          String   @id @default(uuid())
   name        String
+  email       String   @unique
   createdAt   DateTime @default(now())
   active      Boolean  @default(true)
+  industry    String
+  contact     String
+  phone       String
 }
 
 model Location {
   id          String   @id @default(uuid())
   name        String
   address     String
+  city        String
   createdAt   DateTime @default(now())
   active      Boolean  @default(true)
+  capacity    String
+  room        String
 }
 
 model Feedback {
   id          String   @id @default(uuid())
   rating      String
   comment     String
+  userEmail   String
   createdAt   DateTime @default(now())
   active      Boolean  @default(true)
+  eventId     String
+  phone       String
 }
