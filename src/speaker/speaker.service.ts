@@ -15,11 +15,7 @@ export class SpeakerService extends PrismaClient  implements OnModuleInit {
   }
 
   findAll() {
-    return this.speaker.findMany({
-      orderBy:{
-        createdAt:'desc'
-      }
-    });
+    return this.speaker.findMany();
   }
 
 

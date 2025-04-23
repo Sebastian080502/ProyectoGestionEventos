@@ -14,8 +14,12 @@ export class FeedbackService extends PrismaClient implements OnModuleInit{
     });
   }
 
-  findOne() {
-    return this.feedback.findMany();
+  findAll() {
+    return this.feedback.findMany({
+      orderBy: {
+        createdAt: 'desc',  // Ordenar por fecha de creación en orden descendente
+      },
+    });
   }
 
   update(id: string, updateFeedbackDto: UpdateFeedbackDto) {

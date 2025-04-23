@@ -12,11 +12,7 @@ export class LocationService extends PrismaClient implements OnModuleInit {
   }
 
   findAll() {
-    return this.location.findMany({
-      orderBy: {
-        createdAt: 'desc',
-    },
-  });
+    return this.location.findMany();
 
 }
 

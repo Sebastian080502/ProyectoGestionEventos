@@ -24,8 +24,12 @@ export class ConferenceService extends PrismaClient implements OnModuleInit {
   }
 
   // Obtener todas las conferencias
-  findOne() {
-    return this.conference.findMany();
+  findAll() {
+    return this.conference.findMany({
+      orderBy: {
+        createdAt: 'desc',  // Ordenar por fecha de creación en orden descendente
+      },
+    });
   }
 
   // Actualizar una conferencia

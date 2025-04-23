@@ -15,8 +15,12 @@ export class EventService extends PrismaClient implements OnModuleInit {
 }
 
 
-findOne() {
-  return this.event.findMany();
+findAll() {
+  return this.event.findMany({
+    orderBy: {
+      createdAt: 'desc',  // Ordenar por fecha de creación en orden descendente
+    },
+  });
 }
 
 update(id:string, UpdateEventDto: UpdateEventDto) {
